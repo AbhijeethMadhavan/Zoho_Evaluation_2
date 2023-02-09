@@ -1,0 +1,114 @@
+package Evaluation;
+
+import java.util.* ;
+
+public class Q7 {
+
+    int counter = 0 ;
+    public static ArrayList<ArrayList<Integer>> generate(ArrayList<Integer> a , int subset_size ) {
+
+        Collections.sort(a) ;
+
+        int a_len = a.size();
+
+        ArrayList<Integer> b = new ArrayList<>();
+
+        ArrayList<ArrayList<Integer>> c = new ArrayList<>();
+
+        if(subset_size==1) {
+
+            for (int i = 0; i < a.size(); i++) {
+
+                b.add(a.get(i));
+
+                c.add(new ArrayList<>(b));
+
+                b.clear();
+
+            }
+
+
+            return c;
+
+        }
+
+            ArrayList<ArrayList<Integer>> x = new ArrayList<>();
+
+            x = generate(a,subset_size-1) ;
+
+      //  ArrayList<ArrayList<Integer>> z = new ArrayList<>(x);
+
+            int prev_x_size = x.size();
+
+            ArrayList<Integer> subset = new ArrayList<>();
+
+            int subset_last_element = 0 ;
+
+            for(int i=0; i<x.size();i++) {
+
+                subset = new ArrayList<>(x.get(i));
+
+                subset_last_element = subset.get((subset.size())-1) ;
+
+                int index = a.indexOf(subset_last_element) ;
+
+                for(int j=(index+1);j<a.size();j++) {
+
+                    subset.add(a.get(j));
+
+                    x.add(new ArrayList<>(subset));
+
+                    subset.remove((subset.size()-1));
+
+                }
+
+                subset.clear();
+
+            }
+
+        ArrayList<ArrayList<Integer>> y = new ArrayList<>(x);
+
+        System.out.println();
+
+
+            return y ;
+
+
+        }
+
+    public static void main(String[] args) {
+
+        Scanner sc= new Scanner(System.in) ;
+
+        System.out.println(" Enter the number of elements ");
+
+        ArrayList<Integer> d = new ArrayList<>();
+
+        int n = sc.nextInt();
+
+        System.out.println(" Enter the Elements");
+
+        for(int i=0;i<n;i++) {
+
+            d.add(sc.nextInt());
+
+        }
+
+        ArrayList<ArrayList<Integer>> answer = new ArrayList<>();
+
+        answer = generate(d,2) ;
+
+        System.out.println(" The Subsets Are ");
+
+        for(int i=0;i<answer.size();i++) {
+
+
+
+            System.out.println(answer.get(i));
+        }
+
+
+    }
+
+    }
+
