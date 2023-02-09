@@ -1,0 +1,95 @@
+package Evaluation;
+
+import java.util.* ;
+
+public class Q1 {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(" Enter the money the 2 friends have ");
+
+        int total_money = sc.nextInt();
+
+        int[] flavor_costs = new int[]{1,3,4,5,6};
+
+        int size = flavor_costs.length;
+
+        ArrayList a = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+
+            a.add(flavor_costs[i]);
+
+        }
+
+        Collections.sort(a);
+
+
+
+        // Removing all Elements from the ArrayList that are greater than the Total Money
+
+        int fix = size ; // Because if there is no element in the array
+
+        // greater than the total_money , then we take put all elements of the array
+
+        // in b arraylist , so subList(0,fix) = subList(0,size) would be correct
+
+        // Hence fix = size ;
+
+        checker: for (int i = 0; i < size; i++) {
+
+            int el = (int) a.get(i);
+
+            if (el > total_money) {
+
+                fix = i;
+
+                break checker;
+
+            }
+        }
+
+        List<Integer> b = new ArrayList<>();
+
+        b =  a.subList(0, fix);
+
+        ArrayList<ArrayList<Integer>> answer = new ArrayList<ArrayList<Integer>>();
+
+        ArrayList<Integer> putter = new ArrayList<Integer>();
+        int b_size = b.size();
+
+        for(int i=0;i<b_size;i++) {
+
+            for(int j=i+1;j<b.size();j++) {
+
+                if(b.get(i)+b.get(j)==total_money) {
+
+
+                    putter.add(b.get(i));
+
+                    putter.add(b.get(j));
+
+                    answer.add(new ArrayList<>(putter)) ;
+
+                    putter.clear();
+
+                }
+            }
+        }
+
+        // Print the Possibilities
+
+        System.out.println(" The Possibilities are ");
+
+
+
+        for(int i=0;i<answer.size();i++) {
+
+            System.out.println(answer.get(i));
+
+        }
+
+    }
+}
