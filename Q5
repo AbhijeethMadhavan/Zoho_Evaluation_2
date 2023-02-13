@@ -1,0 +1,261 @@
+
+
+import java.util.* ;
+
+public class Q5 {
+
+
+    public static List<List<Character>> permuteUnique(ArrayList<Character> characterlist) {
+
+
+        int size = characterlist.size();
+
+        int c = size;
+
+        if (size == 1) {
+
+            List<List<Character>> t = new ArrayList<>();
+            List<Character> t1 = new ArrayList<>();
+
+            t1.add(characterlist.get(0));
+
+            t.add(t1);
+
+            return t;
+
+        }
+
+        List<List<Character>> x = new ArrayList<>();
+
+        List<List<Character>> ans = new ArrayList<>();
+
+        List<Character> l = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+
+            l.add(characterlist.get(i));
+
+        }
+
+        List<Character> l1 = new ArrayList<>();
+
+        l1.addAll(l);
+
+        l1.remove(0);
+
+        ArrayList<Character> b = new ArrayList<>();
+
+        for (int i = 0; i < l1.size(); i++) {
+
+            b.add(l1.get(i));
+
+        }
+
+        x = permuteUnique(b);
+
+        int x_size = x.size();
+
+        ArrayList<Character> q = new ArrayList<>();
+
+        ArrayList<Character> w = new ArrayList<>();
+
+
+        for (int i = 0; i < x.size(); i++) {
+
+            q.addAll(x.get(i));
+
+            w.addAll(q);
+
+            for (int j = 0; j < characterlist.size(); j++) {
+
+
+                w.add(j, characterlist.get(0));
+
+                ans.add(new ArrayList<>(w));
+
+                w.remove(j);
+
+            }
+
+            w.clear();
+
+            q.clear();
+
+        }
+
+        List<List<Character>> answer = new ArrayList<>();
+
+        Set<List<Character>> s = new HashSet<>();
+
+        s.addAll(new ArrayList<>(ans)) ;
+
+        answer.addAll(new ArrayList<>(s)) ;
+
+        return answer;
+
+    }
+
+    static int counter(ArrayList<Character> c) {
+
+        List<List<Character>> eureka = new ArrayList<>();
+
+        ArrayList<Character> r = new ArrayList<>();
+
+        ArrayList<Character> q = new ArrayList<>();
+
+        eureka = permuteUnique(c);
+
+        Set<List<Character>> s = new HashSet<>();
+
+        s.addAll(eureka) ;
+
+        int count = 0;
+
+        int max_size = 0;
+
+        boolean flag = false;
+
+        for (int i = 0; i < s.size(); i++) {
+
+            r = new ArrayList<Character>(eureka.get(i));
+
+            q = new ArrayList<Character>(r) ;
+
+            Collections.reverse(q);
+
+            if (q.equals(r)) {
+
+                count++;
+
+                q.clear();
+
+                r.clear();
+
+            }
+
+            q.clear();
+
+            r.clear();
+
+        }
+
+        ArrayList<List<Character>> w = new ArrayList<>(s);
+
+        List<Character> a = new ArrayList<>();
+
+        counter :       while(count==0) {
+
+            if(w.get(0).size()==2) {
+
+                return 0 ;
+
+            }
+
+            for(int j=0;j<w.size();j++) {
+
+                a = w.get(j) ;
+
+                a.remove(0) ;
+
+                w.set(j,new ArrayList<Character>(a)) ;
+
+                a.clear();
+
+            }
+
+            s.clear();
+
+            s.addAll(w) ;
+
+            w.clear();
+
+            w.addAll(s) ;
+
+            System.out.println(" The Set " + s );
+
+            for (int i = 0; i < s.size(); i++) {
+
+                r = new ArrayList<Character>(w.get(i));
+
+                q.addAll(r);
+
+                Collections.reverse(q);
+
+                if (q.equals(r)) {
+
+                    count++;
+
+                    q.clear();
+
+                    r.clear();
+
+                }
+
+                q.clear();
+
+                r.clear();
+
+            }
+
+            if(count>0) {
+
+
+                return count ;
+
+            }
+
+            if(count==0) {
+
+
+            }
+
+        }
+
+        return count;
+
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(" Enter the String ");
+
+        String s = sc.next();
+
+        System.out.println(" Enter the Start Index ") ;
+
+        int start = sc.nextInt();
+
+        System.out.println(" Enter the End Index ") ;
+
+        int end = sc.nextInt();
+
+        String sub = s.substring(start-1,end) ;
+
+        ArrayList<Character> a = new ArrayList<>();
+
+        for(int i=0;i<sub.length();i++) {
+
+            a.add(sub.charAt(i));
+
+        }
+
+        int n = a.size();
+
+        ArrayList<Character> c = new ArrayList<>();
+
+        int count = counter(a);
+
+        System.out.println(" The Answer is " + count);
+
+    }
+
+}
+
+
+
+
+
+
